@@ -10,8 +10,9 @@ from tenacity import retry, retry_if_exception, stop_after_attempt
 
 async def create_email(client: ClientSession) -> str:
     try:
-        response = await client.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=1")
-        email = (await response.json())[0]
+        name = ''.join(random.choices(string.ascii_letters, k=8))
+        email = f"{name}@cbdnut.net"
+        
         return email
     except Exception:
         logger.error("Failed to create email")
